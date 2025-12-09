@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Urbanist', sans-serif;
+  --breakpoint-3xl: 1920px;
+  --color-primary: #2563eb;
+}
+
+@layer base{
+  html{
+    font-family: var(--font-display);
+  }
+
+  body{
+    background-color: #fff;
+    color: #1e293b;
+    overflow-x: hidden;
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar{
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb{
+  background-color: #918e93;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+
+@layer utilities{
+  @keyframes text-shine{
+    0%{
+      background-position: 0 50%;
+    }
+    100%{
+      background-position: 100% 50%;
+    }
+  }
+
+
+.animate-text-shine{
+  animation: text-shine 2s ease-in-out infinite alternate;
+}
+}
+
+.input-box{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: #1e293b;
+  background-color: #f0f6ff;
+  border-radius: 0.25rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #2563eb;
+  outline: none;
+}
+
+.input-box:focus-within{
+  border-color: #60a5fa;
+}
+.btn-53,
+.btn-53 *,
+.btn-53 :after,
+.btn-53 :before,
+.btn-53:after,
+.btn-53:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+
+.btn-53 {
+  background-color: var(--color-primary);
+  color: #fff;
+  position: relative;
+  border: 1px solid var(--color-primary);
+  border-radius: 999px;
+  padding: 1.2rem 3rem;
+  overflow: hidden;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-53:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+}
+
+.btn-53 .original {
+  background: #fff;
+  color: var(--color-primary);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.btn-53 .letters {
+  display: inline-flex;
+  z-index: 2;
+  position: relative;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  color: #fff;
+}
+
+.btn-53:hover .letters {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.btn-53 .letters span {
+  opacity: 0;
+  transform: translateY(-15px);
+  transition: transform 0.3s cubic-bezier(0.87, 0, 0.13, 1), opacity 0.3s;
+}
+
+.btn-53 .letters span:nth-child(2n) {
+  transform: translateY(15px);
+}
+
+.btn-53:hover .letters span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-53:hover .letters span:nth-child(2) { transition-delay: 0.1s; }
+.btn-53:hover .letters span:nth-child(3) { transition-delay: 0.2s; }
+.btn-53:hover .letters span:nth-child(4) { transition-delay: 0.3s; }
+.btn-53:hover .letters span:nth-child(5) { transition-delay: 0.4s; }
+
+.btn-53:hover .original {
+  transform: translateY(100%);
+}
+
+.btn-53:hover span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-53:hover span:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.btn-53:hover span:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+.btn-53:hover span:nth-child(4) {
+  transition-delay: 0.3s;
+}
+
+.btn-53:hover span:nth-child(5) {
+  transition-delay: 0.4s;
+}
+
+.cssbuttons-io-button {
+  background: #2563eb;
+  color: white;
+  font-family: inherit;
+  padding: 0.5em;
+  padding-left: 2em;
+  font-size: 24px;
+  font-weight: 600;
+  border-radius: 1.2em;
+  border: none;
+  letter-spacing: 0.07em;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 1 2em -0.6em #1746a2;
+  overflow: hidden;
+  position: relative;
+  height: 3.6em;
+  padding-right: 4em;
+  cursor: pointer;
+}
+
+.cssbuttons-io-button .icon {
+  background: white;
+  margin-left: 1.2em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.8em;
+  width: 2.8em;
+  border-radius: 1em;
+  box-shadow: 0.1em 0.1em 0.8em 0.2em #2563eb;
+  right: 0.3em;
+  transition: all 0.3s;
+}
+
+.cssbuttons-io-button:hover .icon {
+  width: calc(100% - 0.6em);
+}
+
+.cssbuttons-io-button .icon svg {
+  width: 1.5em;
+  transition: transform 0.3s;
+  color: #2563eb;
+}
+
+.cssbuttons-io-button:hover .icon svg {
+  transform: translateX(0.1em);
+}
+
+.cssbuttons-io-button:active .icon {
+  transform: scale(0.95);
+}
+
+
+
