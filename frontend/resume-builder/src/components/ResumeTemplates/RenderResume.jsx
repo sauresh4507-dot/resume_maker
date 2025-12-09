@@ -13,6 +13,10 @@ import TemplateEleven from './TemplateEleven.jsx';
 import TemplateTwelve from './TemplateTwelve.jsx';
 import TemplateThirteen from './TemplateThirteen.jsx';
 import TemplateFourteen from './TemplateFourteen.jsx';
+import TemplateFifteen from './TemplateFifteen.jsx';
+import TemplateSixteen from './TemplateSixteen.jsx';
+import TemplateSeventeen from './TemplateSeventeen.jsx';
+import TemplateEighteen from './TemplateEighteen.jsx';
 
 const RenderResume = ({
   templateId,
@@ -35,6 +39,10 @@ const RenderResume = ({
     "12": TemplateTwelve,
     "13": TemplateThirteen,
     "14": TemplateFourteen,
+    "15": TemplateFifteen,
+    "16": TemplateSixteen,
+    "17": TemplateSeventeen,
+    "18": TemplateEighteen,
   };
 
   const TemplateComponent = templates[templateId] || TemplateOne;

@@ -13,7 +13,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     const [openCreateModal, setOpenCreateModal] = useState(false);
-    const [allResumes, setAllResumes] = useState(null); 
+    const [allResumes, setAllResumes] = useState(null);
 
     const fetchAllResumes = async () => {
         try {
@@ -61,6 +61,7 @@ const Dashboard = () => {
                     setOpenCreateModal(false);
                 }}
                 hideHeader
+                maxWidth="max-w-6xl"
             >
                 <div>
                     <CreateResumeForm />

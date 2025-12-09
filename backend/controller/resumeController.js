@@ -8,7 +8,7 @@ import Resume from "../models/Resume.js";
 
 export const createResume = async (req, res) => {
     try {
-        const { title } = req.body;
+        const { title, template } = req.body;
         const defaultResumeData = {
             profileInfo: {
                 profileImg: null,
@@ -74,6 +74,7 @@ export const createResume = async (req, res) => {
         const newResume = await Resume.create({
             userId: req.user._id,
             title,
+            template: template || { theme: "01", colorPalette: [] },
             ...defaultResumeData,
         });
         res.status(201).json(newResume);
@@ -84,14 +85,14 @@ export const createResume = async (req, res) => {
 
 export const getUserResumes = async (req, res) => {
     try {
-        const resumes = await Resume.find({ userId: req.user._id }).sort({ 
-          updatedAt: -1, 
+        const resumes = await Resume.find({ userId: req.user._id }).sort({
+            updatedAt: -1,
         });
         res.json(resumes);
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Failed to create resume", error: error.message });
+        res
+            .status(500)
+            .json({ message: "Failed to create resume", error: error.message });
     }
 };
 export const getResumeById = async (req, res) => {
@@ -104,9 +105,9 @@ export const getResumeById = async (req, res) => {
 
         res.json(resume);
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Failed to create resume", error: error.message });
+        res
+            .status(500)
+            .json({ message: "Failed to create resume", error: error.message });
     }
 };
 export const updateResume = async (req, res) => {
@@ -123,11 +124,11 @@ export const updateResume = async (req, res) => {
         const savedResume = await resume.save();
 
         res.json(savedResume);
-        
+
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Failed to create resume", error: error.message });
+        res
+            .status(500)
+            .json({ message: "Failed to create resume", error: error.message });
     }
 };
 export const deleteResume = async (req, res) => {
@@ -143,7 +144,7 @@ export const deleteResume = async (req, res) => {
         const uploadsFolder = path.join(__dirname, '..', 'uploads');
         const baseUrl = `${req.protocol}://${req.get("host")}`;
 
-        if(resume.thumbnailLink){
+        if (resume.thumbnailLink) {
             const oldThumbnail = path.join(uploadsFolder, path.basename(resume.thumbailLink));
             if (fs.existSync(oldThumbnail)) fs.unlinkSync(oldProfile);
         }
@@ -157,8 +158,8 @@ export const deleteResume = async (req, res) => {
         }
         res.json({ message: "Resume deleted successfully" });
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Failed to create resume", error: error.message });
+        res
+            .status(500)
+            .json({ message: "Failed to create resume", error: error.message });
     }
 };

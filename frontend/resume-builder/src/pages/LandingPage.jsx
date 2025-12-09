@@ -72,6 +72,36 @@ const LandingPage = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const magneticButtons = document.querySelectorAll('.magnetic-hover');
+    magneticButtons.forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0, 0)';
+      });
+    });
+
+    const rippleButtons = document.querySelectorAll('.ripple-effect');
+    rippleButtons.forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        const x = e.clientX - e.target.offsetLeft;
+        const y = e.clientY - e.target.offsetTop;
+        const ripples = document.createElement('span');
+        ripples.style.left = x + 'px';
+        ripples.style.top = y + 'px';
+        this.appendChild(ripples);
+        setTimeout(() => {
+          ripples.remove();
+        }, 1000);
+      });
+    });
+  }, []);
+
   const handleCTA = () => {
     if (!user) {
       setOpenAuthModal(true);
@@ -81,12 +111,12 @@ const LandingPage = () => {
   };
 
   const features = [
-    { icon: "", title: "Professional Templates", description: "Choose from 14 ATS-friendly templates designed by experts" },
-    { icon: "", title: "Lightning Fast", description: "Create your resume in minutes with our intuitive interface" },
-    { icon: "", title: "Responsive Design", description: "Your resume looks perfect on any device - desktop, tablet, or mobile" },
-    { icon: "", title: "Auto-Save", description: "Never lose your progress with automatic cloud saving" },
-    { icon: "", title: "Multiple Formats", description: "Download your resume in PDF format" },
-    { icon: "", title: "Secure & Private", description: "Your data is encrypted and stored securely with enterprise-grade security" }
+    { icon: "🎨", title: "Professional Templates", description: "Choose from 14 ATS-friendly templates designed by experts" },
+    { icon: "⚡", title: "Lightning Fast", description: "Create your resume in minutes with our intuitive interface" },
+    { icon: "📱", title: "Responsive Design", description: "Your resume looks perfect on any device - desktop, tablet, or mobile" },
+    { icon: "☁️", title: "Auto-Save", description: "Never lose your progress with automatic cloud saving" },
+    { icon: "📄", title: "Multiple Formats", description: "Download your resume in PDF format" },
+    { icon: "🔒", title: "Secure & Private", description: "Your data is encrypted and stored securely with enterprise-grade security" }
   ];
 
   const steps = [
@@ -121,15 +151,16 @@ const LandingPage = () => {
         <div className="flex flex-col md:flex-row items-center justify-between mt-16 gap-12">
           <div className={`w-full md:w-1/2 md:pr-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <h1 className="text-7xl font-extrabold mb-8 leading-tight" style={{ fontFamily: 'Urbanist, sans-serif', color: '#2563eb' }}>
-              Build Your{" "}
-              <span className="bg-gradient-to-r from-orange-400 via-blue-500 to-blue-700 bg-clip-text text-transparent animate-text-shine">
+              <span className="inline-block animate-letter-fade" style={{ animationDelay: '0.1s' }}>Build</span>{" "}
+              <span className="inline-block animate-letter-fade" style={{ animationDelay: '0.2s' }}>Your</span>{" "}
+              <span className="bg-gradient-to-r from-orange-400 via-blue-500 to-blue-700 bg-clip-text text-transparent animate-text-shine inline-block animate-letter-fade" style={{ animationDelay: '0.3s' }}>
                 Resume in Minutes
               </span>
             </h1>
-            <p className="text-2xl text-gray-700 mb-10 leading-relaxed">
+            <p className="text-2xl text-gray-700 mb-10 leading-relaxed animate-slide-in-up" style={{ animationDelay: '0.5s' }}>
               Craft a standout resume with our fast and smart resume builder. Join thousands of professionals who landed their dream jobs.
             </p>
-            <button className="cssbuttons-io-button" onClick={handleCTA}>
+            <button className="cssbuttons-io-button magnetic-hover ripple-effect animate-scale-in" style={{ animationDelay: '0.7s' }} onClick={handleCTA}>
               Get Started
               <span className="icon">
                 <svg height="24" width="24" viewBox="0 0 24 24">
@@ -170,10 +201,10 @@ const LandingPage = () => {
                 </div>
               </div>
 
-              <div className="absolute -top-4 -right-4 bg-gradient-to-r from-orange-500 to-pink-500 text-white px-6 py-3 rounded-full font-bold shadow-xl animate-bounce">
+              <div className="absolute -top-4 -right-4 bg-gradient-to-r from-orange-500 to-pink-500 text-white px-6 py-3 rounded-full font-bold shadow-xl animate-float hover-glow">
                 14 Templates
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full font-bold shadow-xl">
+              <div className="absolute -bottom-4 -left-4 bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full font-bold shadow-xl animate-pulse-glow">
                 ATS Friendly
               </div>
             </div>
@@ -185,9 +216,9 @@ const LandingPage = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className={`text-center transition-all duration-700 ${visibleSections.stats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${index * 100}ms` }}>
-                <div className="text-5xl font-extrabold text-white mb-2" style={{ fontFamily: 'Urbanist, sans-serif' }}>{stat.number}</div>
-                <div className="text-blue-100 text-lg font-medium">{stat.label}</div>
+              <div key={index} className={`text-center hover-scale transition-all duration-700 ${visibleSections.stats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${index * 100}ms` }}>
+                <div className="text-5xl font-extrabold text-white mb-2 transition-transform duration-300 animate-count-up" style={{ fontFamily: 'Urbanist, sans-serif', animationDelay: `${0.5 + (index * 0.2)}s` }}>{stat.number}</div>
+                <div className="text-blue-100 text-lg font-medium animate-letter-fade" style={{ animationDelay: `${0.8 + (index * 0.2)}s` }}>{stat.label}</div>
               </div>
             ))}
           </div>
@@ -201,9 +232,9 @@ const LandingPage = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <div key={index} className={`feature-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-700 border border-gray-100 hover:border-blue-300 hover:-translate-y-2 ${visibleSections.features ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${index * 100}ms` }}>
-              <div className="text-5xl mb-4">{feature.icon}</div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-800" style={{ fontFamily: 'Urbanist, sans-serif' }}>{feature.title}</h3>
+            <div key={index} className={`feature-card glass-card glass-card-hover p-8 rounded-2xl transition-all duration-500 hover:-translate-y-3 ${visibleSections.features ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${index * 150}ms` }}>
+              <div className="text-5xl mb-4 transition-transform duration-300 hover:scale-110 animate-float" style={{ animationDelay: `${index * 0.5}s` }}>{feature.icon}</div>
+              <h3 className="text-2xl font-bold mb-3 text-gray-800 transition-colors duration-300 hover:text-blue-600" style={{ fontFamily: 'Urbanist, sans-serif' }}>{feature.title}</h3>
               <p className="text-gray-600 leading-relaxed">{feature.description}</p>
             </div>
           ))}
@@ -219,9 +250,9 @@ const LandingPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, index) => (
               <div key={index} className={`relative transition-all duration-700 ${visibleSections.steps ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${index * 150}ms` }}>
-                <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 text-center hover:-translate-y-2">
-                  <div className="text-7xl font-extrabold mb-4 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent" style={{ fontFamily: 'Urbanist, sans-serif' }}>{step.number}</div>
-                  <h3 className="text-2xl font-bold mb-3 text-gray-800" style={{ fontFamily: 'Urbanist, sans-serif' }}>{step.title}</h3>
+                <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-400 text-center hover:-translate-y-3 hover-lift group">
+                  <div className="text-7xl font-extrabold mb-4 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent transition-transform duration-300 group-hover:scale-110" style={{ fontFamily: 'Urbanist, sans-serif' }}>{step.number}</div>
+                  <h3 className="text-2xl font-bold mb-3 text-gray-800 transition-colors duration-300 group-hover:text-blue-600" style={{ fontFamily: 'Urbanist, sans-serif' }}>{step.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{step.description}</p>
                 </div>
                 {index < steps.length - 1 && (
@@ -243,14 +274,14 @@ const LandingPage = () => {
             <h2 className="text-5xl font-extrabold mb-6" style={{ fontFamily: 'Urbanist, sans-serif', color: '#2563eb' }}>Why Choose Our Resume Builder?</h2>
             <div className="space-y-6">
               {['ATS-Optimized', 'Expert-Designed', 'Always Updated'].map((title, i) => (
-                <div key={i} className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div key={i} className={`flex items-start gap-4 p-4 rounded-xl hover:bg-blue-50 transition-all duration-300 hover-scale cursor-pointer group glass-card stagger-${i + 1}`}>
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-blue-600 group-hover:scale-110">
+                    <svg className="w-6 h-6 text-blue-600 transition-colors duration-300 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
+                    <h3 className="text-xl font-bold text-gray-800 mb-2 transition-colors duration-300 group-hover:text-blue-600">{title}</h3>
                     <p className="text-gray-600">{i === 0 ? 'Our templates are designed to pass Applicant Tracking Systems' : i === 1 ? 'Created by HR professionals and career coaches' : 'Regular updates with latest industry trends and best practices'}</p>
                   </div>
                 </div>
@@ -258,10 +289,10 @@ const LandingPage = () => {
             </div>
           </div>
           <div className={`w-full md:w-1/2 transition-all duration-1000 delay-300 ${visibleSections.benefits ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-12 rounded-3xl shadow-2xl text-white">
-              <h3 className="text-3xl font-bold mb-6" style={{ fontFamily: 'Urbanist, sans-serif' }}>Ready to Get Started?</h3>
+            <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-12 rounded-3xl shadow-2xl text-white hover-lift">
+              <h3 className="text-3xl font-bold mb-6 animate-slide-in-up" style={{ fontFamily: 'Urbanist, sans-serif' }}>Ready to Get Started?</h3>
               <p className="text-xl mb-8 text-blue-50">Join thousands of job seekers who have successfully landed their dream jobs with our resume builder.</p>
-              <button className="bg-white text-blue-600 font-bold py-4 px-8 rounded-full text-lg hover:bg-blue-50 transition-all duration-300 hover:shadow-xl hover:scale-105" onClick={handleCTA}>
+              <button className="bg-white text-blue-600 font-bold py-4 px-8 rounded-full text-lg hover:bg-blue-50 transition-all duration-300 hover:shadow-2xl hover:scale-110 active:scale-95" onClick={handleCTA}>
                 Create Your Resume Now
               </button>
             </div>

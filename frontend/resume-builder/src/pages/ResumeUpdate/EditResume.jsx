@@ -14,7 +14,6 @@ import TitleInput from '../../components/inputs/TitleInput.jsx';
 import { useReactToPrint } from "react-to-print";
 import axiosInstance from '../../utils/axioinstance';
 import { API_PATHS } from '../../utils/apiPaths.js';
-import ProfileInfoCard from '../../components/cards/ProfileInfoCard.jsx';
 import ProfileInfoForm from './Forms/ProfileInfoForm.jsx';
 import ContactInfoForm from './Forms/ContactInfoForm.jsx';
 import WorkExperienceForm from './Forms/WorkExperienceForm.jsx';
@@ -537,7 +536,10 @@ const EditResume = () => {
     toast.error("Delete resume not implemented yet.");
   };
 
-  const reactToPrintFn = useReactToPrint({ contentRef: resumeDownloadRef });
+  const reactToPrintFn = useReactToPrint({
+    contentRef: resumeDownloadRef,
+    pageStyle: "@page { size: A4; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; } }"
+  });
 
   const updateBaseWidth = () => {
     if (resumeRef.current) {
@@ -674,33 +676,35 @@ const EditResume = () => {
         <div className="flex flex-col items-center gap-6 p-4">
           <div
             style={{
-              width: '900px', // modal width
+              width: '100%',
               height: '80vh',
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'center',
+              alignItems: 'start',
               overflow: 'auto',
-              margin: '0 auto',
-              background: 'transparent'
+              background: '#f0f0f0',
+              padding: '20px'
             }}
           >
-            <div
-              ref={resumeDownloadRef}
-              style={{
-                width: '600px', // A4 width
-                height: '500px', // A4 height
-                transform: 'scale(0.645)', // zoom out to 80%
-                transformOrigin: 'top center',
-                background: 'white',
-                boxShadow: '0 0 8px rgba(0,0,0,0.1)'
-              }}
-            >
-              <RenderResume
-                templateId={resumeData?.template?.theme || ""}
-                resumeData={resumeData}
-                colorPalette={resumeData?.template?.colorPalette || []}
-                containerWidth={794}
-              />
+            <div style={{ transform: 'scale(0.6)', transformOrigin: 'top center' }}>
+              <div
+                ref={resumeDownloadRef}
+                style={{
+                  width: '794px', // A4 width in px (96 DPI)
+                  minHeight: '1123px', // A4 height in px (96 DPI)
+                  background: 'white',
+                  boxShadow: '0 0 10px rgba(0,0,0,0.2)',
+                  margin: '0 auto',
+                  overflow: 'hidden'
+                }}
+              >
+                <RenderResume
+                  templateId={resumeData?.template?.theme || ""}
+                  resumeData={resumeData}
+                  colorPalette={resumeData?.template?.colorPalette || []}
+                  containerWidth={794}
+                />
+              </div>
             </div>
           </div>
           <div className="flex gap-4 mt-4">

@@ -16,7 +16,11 @@ const TEMPLATES = [
   { id: "11", name: "Square Profile", description: "2/5-3/5 split with square profile image", preview: "Contemporary style" },
   { id: "12", name: "Full Header", description: "Full-width colored header banner", preview: "Impactful design" },
   { id: "13", name: "Pill Headers", description: "Pill-shaped section headers", preview: "Modern and playful" },
-  { id: "14", name: "Card Style", description: "Rounded card header with bar accents", preview: "Clean and organized" }
+  { id: "14", name: "Card Style", description: "Rounded card header with bar accents", preview: "Clean and organized" },
+  { id: "15", name: "Harvard Professional", description: "Clean, text-focused design for maximum professionalism", preview: "Top-tier professional standard" },
+  { id: "16", name: "Tech Standard", description: "The de-facto standard for FAANG/Tech resumes", preview: "Optimized for ATS & Recruiter scanning" },
+  { id: "17", name: "Modern Minimalist", description: "Sleek, sans-serif design for modern tech roles", preview: "Clean, bold, and effective" },
+  { id: "18", name: "Compact Tech", description: "High-density two-column layout for experienced pros", preview: "Maximize content on one page" }
 ];
 
 const ThemeSelector = ({
@@ -46,8 +50,8 @@ const ThemeSelector = ({
             <div
               key={template.id}
               className={`group relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 ${selectedTheme === template.id
-                  ? 'ring-4 ring-blue-500 shadow-2xl scale-105'
-                  : 'ring-1 ring-gray-200 hover:ring-2 hover:ring-blue-300 hover:shadow-xl'
+                ? 'ring-4 ring-blue-500 shadow-2xl scale-105'
+                : 'ring-1 ring-gray-200 hover:ring-2 hover:ring-blue-300 hover:shadow-xl'
                 }`}
               onClick={() => handleSelectTemplate(template.id)}
               onMouseEnter={() => setHoveredTemplate(template.id)}
